@@ -84,37 +84,26 @@ extension ViewController: NSTableViewDataSource{
         return self.selectionModel.imageInformationArray.count
     }
     
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(tableView: NSTableView!, objectValueForTableColumn tableColumn: NSTableColumn!, row: Int) -> AnyObject!{
+        var objectValue: AnyObject = ""
+        
         let fileDetails = self.selectionModel.imageInformationArray[row]
         switch tableColumn!.identifier {
         case "filename":
             
-            if let cell = tableView.makeViewWithIdentifier("filename", owner: nil) as? NSTableCellView {
                 if let filePath = fileDetails.filePath{
-                    cell.textField?.stringValue = filePath.lastPathComponent ?? ""
+                    objectValue = filePath.lastPathComponent ?? ""
                 }
-                return cell
-            }
             
         case "selected":
-            
-            if let cell = tableView.makeViewWithIdentifier("checkbox", owner: nil) as? NSTableCellView {
-                if let checkBox = cell.viewWithTag(1) as? NSButton{
-                    checkBox.state = fileDetails.selected ? 1 : 0
-                }
-                return cell
-            }
+            objectValue = fileDetails.selected ? 1 : 0
             
         default:
             break
         }
         
-        return nil
+        return objectValue
     }
-
-    
-    
-    
 }
 
 extension ViewController: NSTableViewDelegate{
