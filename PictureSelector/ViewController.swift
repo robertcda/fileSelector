@@ -12,8 +12,17 @@ class ViewController: NSViewController {
 
     var selectionModel: SelectionModel!{
         didSet{
+            self.refreshLocalModel()
+
             tableView.setDataSource(self)
             tableView.setDelegate(self)
+        }
+    }
+    
+    var filteredArrayOfFileInfos:[FileInformation] = [FileInformation]()
+    func refreshLocalModel(){
+        for imgInfo in self.selectionModel.imageInformationArray{
+            self.filteredArrayOfFileInfos.append(imgInfo)
         }
     }
     
@@ -87,13 +96,13 @@ extension ViewController: NSTableViewDataSource{
         
     }
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return self.selectionModel.imageInformationArray.count
+        return self.filteredArrayOfFileInfos.count
     }
     
     func tableView(tableView: NSTableView!, objectValueForTableColumn tableColumn: NSTableColumn!, row: Int) -> AnyObject!{
         var objectValue: AnyObject = ""
         
-        let fileDetails = self.selectionModel.imageInformationArray[row]
+        let fileDetails = self.filteredArrayOfFileInfos[row]
         switch tableColumn!.identifier {
         case "filename":
             
@@ -116,7 +125,7 @@ extension ViewController: NSTableViewDataSource{
     
     func tableView(tableView: NSTableView, setObjectValue object: AnyObject?, forTableColumn tableColumn: NSTableColumn?, row: Int) {
 
-        let fileDetails = self.selectionModel.imageInformationArray[row]
+        let fileDetails = self.filteredArrayOfFileInfos[row]
 
         switch tableColumn!.identifier {
         case "selected":
@@ -140,7 +149,7 @@ extension ViewController: NSTableViewDelegate{
         print("\(#function)")
         let selectedIndex = tableView.selectedRowIndexes.firstIndex
         if selectedIndex != NSNotFound{
-            let selectedImgDetails = self.selectionModel.imageInformationArray[selectedIndex]
+            let selectedImgDetails = self.filteredArrayOfFileInfos[selectedIndex]
             updateViewWithInfo(selectedImgDetails)
         }else{
             imageView.image = nil
