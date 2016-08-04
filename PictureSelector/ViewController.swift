@@ -104,6 +104,21 @@ extension ViewController: NSTableViewDataSource{
         
         return objectValue
     }
+    
+    func tableView(tableView: NSTableView, setObjectValue object: AnyObject?, forTableColumn tableColumn: NSTableColumn?, row: Int) {
+
+        let fileDetails = self.selectionModel.imageInformationArray[row]
+
+        switch tableColumn!.identifier {
+        case "selected":
+            if let numberValue = object as? NSNumber{
+                fileDetails.selected = numberValue.boolValue
+                self.selectionModel.save()
+            }
+        default:
+            break
+        }
+    }
 }
 
 extension ViewController: NSTableViewDelegate{
