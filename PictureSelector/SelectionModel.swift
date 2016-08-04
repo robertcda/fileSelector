@@ -73,7 +73,16 @@ class SelectionModel{
         var allGroupsInformation = [String:[String]]()
         
         for (fileName,group) in selectedFileDetails{
-            allGroupsInformation[group]?.append(fileName)
+            if let array = allGroupsInformation[group]{
+                
+                var mutArray = [String]()
+                mutArray.appendContentsOf(array)
+                mutArray.append(fileName)
+                
+                allGroupsInformation[group] = mutArray
+            }else{
+                allGroupsInformation[group] = [fileName]
+            }
         }
         
         for (groupName,arrayOfFiles) in allGroupsInformation{
@@ -84,7 +93,7 @@ class SelectionModel{
                 selectedText += ", "
             }
             selectedText += "\n\n"
-            selectedText += "--------"
+            selectedText += "--------\n"
         }
         
         return selectedText

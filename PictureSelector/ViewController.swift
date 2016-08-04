@@ -103,6 +103,9 @@ extension ViewController: NSTableViewDataSource{
         case "selected":
             objectValue = fileDetails.selected ? 1 : 0
             
+        case "group":
+            objectValue = fileDetails.group
+            
         default:
             break
         }
@@ -118,6 +121,11 @@ extension ViewController: NSTableViewDataSource{
         case "selected":
             if let numberValue = object as? NSNumber{
                 fileDetails.selected = numberValue.boolValue
+                self.selectionModel.save()
+            }
+        case "group":
+            if let groupName = object as? String{
+                fileDetails.group = groupName
                 self.selectionModel.save()
             }
         default:
