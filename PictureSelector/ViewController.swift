@@ -78,7 +78,12 @@ class ViewController: NSViewController {
 
 extension ViewController: NSTableViewDataSource{
     @IBAction func saveButtonClicked(sender: NSButton) {
-        self.selectionModel.save()
+        
+        let pasteboard = NSPasteboard.generalPasteboard()
+        pasteboard.declareTypes([NSPasteboardTypeString], owner: nil)
+        pasteboard.setString(self.selectionModel.selectedFilesInText(), forType: NSPasteboardTypeString)
+
+        
     }
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         return self.selectionModel.imageInformationArray.count

@@ -65,6 +65,15 @@ class SelectionModel{
         }
     }
     
+    // MARK:- Interface to get the selected files in text format.
+    func selectedFilesInText() -> String{
+        var selectedText: String = ""
+        for fileName in selectedFileNames{
+            selectedText += fileName
+            selectedText += ", "
+        }
+        return selectedText
+    }
     
     //MARK:- Selection to & fro Dictionary
     var fileNameToSave = "selectedList.plist"
