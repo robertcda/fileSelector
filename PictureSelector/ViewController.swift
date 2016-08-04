@@ -17,6 +17,7 @@ class ViewController: NSViewController {
         }
     }
     
+    @IBOutlet weak var fileDescriptionLabel: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
     
     @IBOutlet weak var imageView: NSImageView!
@@ -140,13 +141,21 @@ extension ViewController: NSTableViewDelegate{
         let selectedIndex = tableView.selectedRowIndexes.firstIndex
         if selectedIndex != NSNotFound{
             let selectedImgDetails = self.selectionModel.imageInformationArray[selectedIndex]
-            if let fileURL = selectedImgDetails.fileURL, let image = NSImage(contentsOfURL: fileURL){
-                imageView.imageScaling = .ScaleProportionallyUpOrDown
-                imageView.image = image
-            }
+            updateViewWithInfo(selectedImgDetails)
         }else{
             imageView.image = nil
         }
         
+    }
+    
+    func updateViewWithInfo(fileInfo:FileInformation){
+        if let fileURL = fileInfo.fileURL, let image = NSImage(contentsOfURL: fileURL){
+            imageView.imageScaling = .ScaleProportionallyUpOrDown
+            imageView.image = image
+        }
+        if let fileURL = fileInfo.fileURL{
+            fileDescriptionLabel.maximumNumberOfLines = 4
+            fileDescriptionLabel.stringValue = fileURL.absoluteString
+        }
     }
 }
