@@ -37,18 +37,6 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBOutlet weak var nonSelectedCheckbox: NSButton!
-    @IBAction func nonSelectedClicked(sender: NSButton) {
-    }
-    
-    @IBOutlet weak var selectedCheckBox: NSButton!
-    
-    @IBAction func nonSelectedButtonClicked(sender: NSButton) {
-    }
-    
-    @IBAction func selectFolderButtonClicked(sender: AnyObject) {
-        self.initializeBasics()
-    }
     
     override var representedObject: AnyObject? {
         didSet {
@@ -84,17 +72,35 @@ class ViewController: NSViewController {
         }
         return resultURL
     }
-}
+    
+    //MARK:- outlets and Actions
+    
+    @IBOutlet weak var nonSelectedCheckbox: NSButton!
+    @IBAction func nonSelectedClicked(sender: NSButton) {
+    }
+    
+    @IBOutlet weak var selectedCheckBox: NSButton!
+    
+    @IBAction func nonSelectedButtonClicked(sender: NSButton) {
+    }
+    
+    @IBAction func selectFolderButtonClicked(sender: AnyObject) {
+        self.initializeBasics()
+    }
 
-extension ViewController: NSTableViewDataSource{
+    
     @IBAction func saveButtonClicked(sender: NSButton) {
         
         let pasteboard = NSPasteboard.generalPasteboard()
         pasteboard.declareTypes([NSPasteboardTypeString], owner: nil)
         pasteboard.setString(self.selectionModel.selectedFilesInText(), forType: NSPasteboardTypeString)
-
+        
         
     }
+
+}
+
+extension ViewController: NSTableViewDataSource{
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         return self.filteredArrayOfFileInfos.count
     }
