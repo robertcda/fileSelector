@@ -9,7 +9,7 @@
 import Foundation
 
 class FileInformation{
-    var filePath:NSURL?
+    var fileURL:NSURL?
     var selected:Bool = false
     var group: String = ""
 }
@@ -34,7 +34,7 @@ class SelectionModel{
                     case "PNG":
                         
                         let fileInfoObject = FileInformation()
-                        fileInfoObject.filePath = imgURL
+                        fileInfoObject.fileURL = imgURL
                         fileInfoObject.selected = isFileSelected(imgURL)
                         fileInfoObject.group = groupOfFile(imgURL)
                         self.imageInformationArray.append(fileInfoObject)
@@ -106,7 +106,7 @@ class SelectionModel{
         var dictionaryOfFileDetails = [String:String]()
         
         for imgInfo in imageInformationArray{
-            if let filePath = imgInfo.filePath where imgInfo.selected, let fileName = filePath.lastPathComponent{
+            if let filePath = imgInfo.fileURL where imgInfo.selected, let fileName = filePath.lastPathComponent{
                 dictionaryOfFileDetails[fileName] = imgInfo.group ?? ""
             }
         }

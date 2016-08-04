@@ -96,7 +96,7 @@ extension ViewController: NSTableViewDataSource{
         switch tableColumn!.identifier {
         case "filename":
             
-                if let filePath = fileDetails.filePath{
+                if let filePath = fileDetails.fileURL{
                     objectValue = filePath.lastPathComponent ?? ""
                 }
             
@@ -140,7 +140,7 @@ extension ViewController: NSTableViewDelegate{
         let selectedIndex = tableView.selectedRowIndexes.firstIndex
         if selectedIndex != NSNotFound{
             let selectedImgDetails = self.selectionModel.imageInformationArray[selectedIndex]
-            if let fileURL = selectedImgDetails.filePath, let image = NSImage(contentsOfURL: fileURL){
+            if let fileURL = selectedImgDetails.fileURL, let image = NSImage(contentsOfURL: fileURL){
                 imageView.imageScaling = .ScaleProportionallyUpOrDown
                 imageView.image = image
             }
