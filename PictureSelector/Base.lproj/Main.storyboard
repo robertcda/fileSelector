@@ -674,20 +674,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="708" height="475"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K6W-xz-YZl">
-                                <rect key="frame" x="20" y="-28" width="668" height="483"/>
+                            <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="K6W-xz-YZl">
+                                <rect key="frame" x="20" y="20" width="668" height="435"/>
                                 <subviews>
-                                    <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F54-qP-zU1">
-                                        <rect key="frame" x="0.0" y="0.0" width="330" height="483"/>
+                                    <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F54-qP-zU1">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="435"/>
                                         <subviews>
-                                            <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apH-TP-5xV">
-                                                <rect key="frame" x="0.0" y="150" width="330" height="333"/>
+                                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apH-TP-5xV">
+                                                <rect key="frame" x="0.0" y="75" width="330" height="360"/>
                                                 <clipView key="contentView" id="AIC-TR-2Hm">
-                                                    <rect key="frame" x="1" y="0.0" width="328" height="317"/>
+                                                    <rect key="frame" x="1" y="0.0" width="328" height="359"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="TuZ-N2-Pjl" id="64d-T0-uoH">
-                                                            <rect key="frame" x="0.0" y="0.0" width="341" height="294"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="341" height="336"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -738,7 +738,7 @@
                                                     <constraint firstAttribute="width" constant="330" id="ABM-L5-sjM"/>
                                                 </constraints>
                                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="0yJ-vQ-lhp">
-                                                    <rect key="frame" x="1" y="317" width="328" height="15"/>
+                                                    <rect key="frame" x="1" y="343" width="328" height="16"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Df3-lD-F3t">
@@ -750,53 +750,81 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableHeaderView>
                                             </scrollView>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="Lcb-nk-uJe">
-                                                <rect key="frame" x="-2" y="114" width="106" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Non-Selected" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vAn-Ib-MLV">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="nonSelectedClicked:" target="XfG-lQ-9wD" id="rMk-Rp-pSW"/>
-                                                </connections>
-                                            </button>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="nZy-E0-IBF">
-                                                <rect key="frame" x="-2" y="80" width="76" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Selected" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="KQv-88-DMX">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="nonSelectedButtonClicked:" target="XfG-lQ-9wD" id="DBV-zP-zSj"/>
-                                                </connections>
-                                            </button>
-                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YER-AO-tiL">
-                                                <rect key="frame" x="-6" y="34" width="120" height="32"/>
-                                                <buttonCell key="cell" type="push" title="Select Folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kbz-so-tAh">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="selectFolderButtonClicked:" target="XfG-lQ-9wD" id="pxa-3c-d5a"/>
-                                                </connections>
-                                            </button>
-                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="adF-yg-mFo">
-                                                <rect key="frame" x="-6" y="-7" width="175" height="32"/>
-                                                <buttonCell key="cell" type="push" title="GenerateSelectedText" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ji4-ks-jhb">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="saveButtonClicked:" target="XfG-lQ-9wD" id="n9q-WP-TPt"/>
-                                                </connections>
-                                            </button>
+                                            <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oI1-4u-GGF">
+                                                <rect key="frame" x="0.0" y="41" width="354" height="14"/>
+                                                <subviews>
+                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Lcb-nk-uJe">
+                                                        <rect key="frame" x="-2" y="-2" width="177" height="18"/>
+                                                        <buttonCell key="cell" type="check" title="Non-Selected" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vAn-Ib-MLV">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="nonSelectedClicked:" target="XfG-lQ-9wD" id="rMk-Rp-pSW"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="nZy-E0-IBF">
+                                                        <rect key="frame" x="179" y="-2" width="177" height="18"/>
+                                                        <buttonCell key="cell" type="check" title="Selected" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="KQv-88-DMX">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="nonSelectedButtonClicked:" target="XfG-lQ-9wD" id="DBV-zP-zSj"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qmh-fM-8Sa">
+                                                <rect key="frame" x="20" y="0.0" width="334" height="21"/>
+                                                <subviews>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YER-AO-tiL">
+                                                        <rect key="frame" x="-6" y="-7" width="175" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Select Folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kbz-so-tAh">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="selectFolderButtonClicked:" target="XfG-lQ-9wD" id="pxa-3c-d5a"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="adF-yg-mFo">
+                                                        <rect key="frame" x="165" y="-7" width="175" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="GenerateSelectedText" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ji4-ks-jhb">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="saveButtonClicked:" target="XfG-lQ-9wD" id="n9q-WP-TPt"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Qmh-fM-8Sa" secondAttribute="trailing" constant="20" symbolic="YES" id="I76-LT-qAY"/>
+                                            <constraint firstItem="oI1-4u-GGF" firstAttribute="leading" secondItem="F54-qP-zU1" secondAttribute="leading" id="JYP-mw-QMw"/>
+                                            <constraint firstAttribute="trailing" secondItem="oI1-4u-GGF" secondAttribute="trailing" constant="20" symbolic="YES" id="fli-FP-ZRV"/>
                                             <constraint firstItem="apH-TP-5xV" firstAttribute="top" secondItem="F54-qP-zU1" secondAttribute="top" id="p4Y-G0-FqT"/>
+                                            <constraint firstItem="Qmh-fM-8Sa" firstAttribute="leading" secondItem="F54-qP-zU1" secondAttribute="leading" constant="20" symbolic="YES" id="qHL-dS-0hZ"/>
                                         </constraints>
                                         <visibilityPriorities>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -805,12 +833,10 @@
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tDe-mW-pPm">
-                                        <rect key="frame" x="468" y="17" width="183" height="449"/>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tDe-mW-pPm">
+                                        <rect key="frame" x="391" y="17" width="260" height="401"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="photo" id="zUP-tM-RbU"/>
                                     </imageView>
                                 </subviews>
