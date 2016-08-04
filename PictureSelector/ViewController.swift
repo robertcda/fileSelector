@@ -23,7 +23,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageView.autoresizingMask =  [.ViewHeightSizable,.ViewWidthSizable]
+//        imageView.autoresizingMask =  [.ViewNotSizable]
         // Do any additional setup after loading the view.
     }
     
@@ -36,7 +36,7 @@ class ViewController: NSViewController {
     @IBAction func nonSelectedButtonClicked(sender: NSButton) {
     }
     
-    @IBAction func generateButtonClicked(sender: AnyObject) {
+    @IBAction func selectFolderButtonClicked(sender: AnyObject) {
         self.initializeBasics()
     }
     
