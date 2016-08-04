@@ -19,7 +19,11 @@ class ViewController: NSViewController {
         }
     }
     
-    var filteredArrayOfFileInfos:[FileInformation] = [FileInformation]()
+    var filteredArrayOfFileInfos:[FileInformation] = [FileInformation](){
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
     func refreshLocalModel(){
         for imgInfo in self.selectionModel.imageInformationArray{
             self.filteredArrayOfFileInfos.append(imgInfo)
@@ -148,6 +152,51 @@ extension ViewController: NSTableViewDataSource{
             break
         }
     }
+    
+    func tableView(tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+        guard let sortDescriptor = tableView.sortDescriptors.first else {
+            return
+        }
+        if let key = sortDescriptor.key{
+            switch key {
+            case "ImageName":
+                self.filteredArrayOfFileInfos.sortInPlace(){
+                    one, two in
+                    if let oneFileName = one.fileURL?.lastPathComponent{
+                        if let twoFileName = two.fileURL?.lastPathComponent{
+                            if oneFileName < twoFileName  {
+                                return sortDescriptor.ascending
+                            }else{
+                                return !sortDescriptor.ascending
+                            }
+                        }
+                    }
+                    return !sortDescriptor.ascending
+                }
+                
+                print("Sort By Image Name ascending(\(sortDescriptor.ascending))")
+                
+            case "group":
+                print("Sort By Group ascending(\(sortDescriptor.ascending)")
+                
+                self.filteredArrayOfFileInfos.sortInPlace(){
+                    one, two in
+                    if one.group < two.group  {
+                        return sortDescriptor.ascending
+                    }else{
+                        return !sortDescriptor.ascending
+                    }
+                    return !sortDescriptor.ascending
+                }
+
+            default:
+                break
+            }
+        }
+    }
+    
+    
+    
 }
 
 extension ViewController: NSTableViewDelegate{
