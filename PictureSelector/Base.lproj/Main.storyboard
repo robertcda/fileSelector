@@ -674,6 +674,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="708" height="475"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="esD-79-gwE">
+                                <rect key="frame" x="346" y="229" width="16" height="16"/>
+                            </progressIndicator>
                             <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K6W-xz-YZl">
                                 <rect key="frame" x="20" y="-19" width="668" height="474"/>
                                 <subviews>
@@ -885,13 +888,16 @@
                             </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="esD-79-gwE" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="NHA-oV-fy0"/>
                             <constraint firstAttribute="trailing" secondItem="K6W-xz-YZl" secondAttribute="trailing" constant="20" symbolic="YES" id="UEA-8o-WDM"/>
+                            <constraint firstItem="esD-79-gwE" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="ace-zi-cSv"/>
                             <constraint firstItem="K6W-xz-YZl" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="fOt-Zo-j4V"/>
                             <constraint firstItem="K6W-xz-YZl" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="q00-A3-4tp"/>
                             <constraint firstAttribute="bottom" secondItem="K6W-xz-YZl" secondAttribute="bottom" constant="20" symbolic="YES" id="xfk-jC-hMB"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="esD-79-gwE" id="jFA-HL-C6V"/>
                         <outlet property="allCheckBox" destination="aWl-OE-rrQ" id="eIj-8H-OCR"/>
                         <outlet property="fileDescriptionLabel" destination="I5t-rL-krj" id="P7W-aM-H4o"/>
                         <outlet property="imageView" destination="tDe-mW-pPm" id="Wp5-4J-vbN"/>

@@ -53,11 +53,13 @@ class ViewController: NSViewController {
                 }
                 return !self.currentSortingMetho.ascendingBoolValue
             }
-            
-            self.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue()){
+                self.tableView.reloadData()
+            }
         }
     }
     
+    @IBOutlet weak var activityIndicator: NSProgressIndicator!
     @IBOutlet weak var fileDescriptionLabel: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
     
@@ -67,7 +69,6 @@ class ViewController: NSViewController {
 
         tableView.setDataSource(self)
         tableView.setDelegate(self)
-
         self.initializeShowOptions()
 //        imageView.autoresizingMask =  [.ViewNotSizable]
         // Do any additional setup after loading the view.
@@ -81,8 +82,12 @@ class ViewController: NSViewController {
     }
     
     func initializeBasics(){
+        activityIndicator.startAnimation(self)
         if let path = self.getTheFolderPathToBrowse(){
-            selectionModel = SelectionModel(fromFolderPath: path)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
+                self.selectionModel = SelectionModel(fromFolderPath: path)
+                self.activityIndicator.stopAnimation(self)
+            }
         }
     }
     
@@ -265,9 +270,6 @@ extension ViewController: NSTableViewDataSource{
             }
         }
     }
-    
-    
-    
 }
 
 extension ViewController: NSTableViewDelegate{
@@ -290,7 +292,10 @@ extension ViewController: NSTableViewDelegate{
         }
         if let fileURL = fileInfo.fileURL{
             fileDescriptionLabel.maximumNumberOfLines = 4
-            fileDescriptionLabel.stringValue = fileURL.absoluteString
+            fileDescriptionLabel.stringValue = ""
+            if let selectionModel = self.selectionModel, let relativeFileName = selectionModel.relativeFileName(fileURL){
+                fileDescriptionLabel.stringValue = relativeFileName
+            }
         }
     }
 }

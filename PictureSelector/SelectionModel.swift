@@ -58,10 +58,17 @@ class SelectionModel{
             arrayOfFileURLs.removeAll()
             if let folderPath = folderPath{
                 
-                
+                let fileManager = NSFileManager.defaultManager()
+                if let stringPath = folderPath.path, let enumerator:NSDirectoryEnumerator = fileManager.enumeratorAtPath(stringPath){
+                    while let element = enumerator.nextObject() as? String {
+                        arrayOfFileURLs.append(folderPath.URLByAppendingPathComponent(element))
+                    }
+                }
+/*
                 let arrayOfFiles = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(folderPath, includingPropertiesForKeys: nil, options:NSDirectoryEnumerationOptions())
                 print("arrayOfFiles:\(arrayOfFiles)")
                 arrayOfFileURLs.appendContentsOf(arrayOfFiles)
+ */
             }
         }catch let error{
             print("parseAllFilesInFolderPath: error:\(error)")
@@ -108,7 +115,7 @@ class SelectionModel{
         var dictionaryOfFileDetails = [String:String]()
         
         for imgInfo in imageInformationArray{
-            if let filePath = imgInfo.fileURL where imgInfo.selected, let fileName = filePath.lastPathComponent{
+            if let fileUrl = imgInfo.fileURL where imgInfo.selected, let fileName = relativeFileName(fileUrl){
                 dictionaryOfFileDetails[fileName] = imgInfo.group ?? ""
             }
         }
@@ -127,7 +134,7 @@ class SelectionModel{
     }
     
     func groupOfFile(fileURL:NSURL) -> String{
-        if let pathComponent = fileURL.lastPathComponent{
+        if let pathComponent = relativeFileName(fileURL){
             for (fileName,group) in selectedFileDetails{
                 if fileName == pathComponent{
                     return group
@@ -137,9 +144,20 @@ class SelectionModel{
         return ""
     }
 
+    func relativeFileName(filePath:NSURL) -> String?{
+        var relativeFileName = filePath.lastPathComponent
+        
+        if let stringFilePath = filePath.path, let stringFolderPath = self.folderPath?.path{
+            let possibleRelativeFileName = stringFilePath.stringByReplacingOccurrencesOfString(stringFolderPath, withString: "")
+            if possibleRelativeFileName.characters.count > 0{
+                relativeFileName = possibleRelativeFileName
+            }
+        }
+        return relativeFileName
+    }
     
     func isFileSelected(fileURL:NSURL) -> Bool{
-        if let pathComponent = fileURL.lastPathComponent{
+        if let pathComponent = relativeFileName(fileURL){
             for (fileName,_) in selectedFileDetails{
                 if fileName == pathComponent{
                     return true
