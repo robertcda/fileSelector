@@ -81,16 +81,6 @@ class ViewController: NSViewController {
         }
     }
     
-    func initializeBasics(){
-        activityIndicator.startAnimation(self)
-        if let path = self.getTheFolderPathToBrowse(){
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
-                self.selectionModel = SelectionModel(fromFolderPath: path)
-                self.activityIndicator.stopAnimation(self)
-            }
-        }
-    }
-    
     func getTheFolderPathToBrowse() -> NSURL?{
         
         var resultURL:NSURL? = nil
@@ -158,8 +148,18 @@ class ViewController: NSViewController {
     
     //MARK:- outlets and Actions
 
-    @IBAction func selectFolderButtonClicked(sender: AnyObject) {
-        self.initializeBasics()
+    @IBAction func selectFolderButtonClicked(sender: NSButton) {
+        sender.enabled = false
+        activityIndicator.startAnimation(self)
+        if let path = self.getTheFolderPathToBrowse(){
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
+                self.selectionModel = SelectionModel(fromFolderPath: path)
+                dispatch_async(dispatch_get_main_queue()){
+                    self.activityIndicator.stopAnimation(self)
+                    sender.enabled = true
+                }
+            }
+        }
     }
 
     
