@@ -669,7 +669,7 @@
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="PictureSelector" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="m2S-Jp-Qdl">
+                    <view key="view" misplaced="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="643" height="358"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -769,6 +769,10 @@
                             </scrollView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tDe-mW-pPm">
                                 <rect key="frame" x="210" y="0.0" width="433" height="358"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="358" id="15H-D5-5U8"/>
+                                    <constraint firstAttribute="width" constant="433" id="OSt-hX-lYv"/>
+                                </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="zUP-tM-RbU"/>
                             </imageView>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Lcb-nk-uJe">

@@ -23,7 +23,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        imageView.autoresizingMask =  [.ViewHeightSizable,.ViewWidthSizable]
         // Do any additional setup after loading the view.
     }
     
@@ -118,5 +118,18 @@ extension ViewController: NSTableViewDataSource{
 }
 
 extension ViewController: NSTableViewDelegate{
-    
+    func tableViewSelectionDidChange(notification: NSNotification) {
+        print("\(#function)")
+        let selectedIndex = tableView.selectedRowIndexes.firstIndex
+        if selectedIndex != NSNotFound{
+            let selectedImgDetails = self.selectionModel.imageInformationArray[selectedIndex]
+            if let fileURL = selectedImgDetails.filePath, let image = NSImage(contentsOfURL: fileURL){
+                imageView.imageScaling = .ScaleProportionallyUpOrDown
+                imageView.image = image
+            }
+        }else{
+            imageView.image = nil
+        }
+        
+    }
 }
