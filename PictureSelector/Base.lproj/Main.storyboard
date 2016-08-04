@@ -770,7 +770,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="nonSelectedClicked:" target="XfG-lQ-9wD" id="rMk-Rp-pSW"/>
+                                                            <action selector="nonSelectedButtonClicked:" target="XfG-lQ-9wD" id="Bcl-W5-k8N"/>
                                                         </connections>
                                                     </button>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="nZy-E0-IBF">
@@ -780,7 +780,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="nonSelectedButtonClicked:" target="XfG-lQ-9wD" id="DBV-zP-zSj"/>
+                                                            <action selector="selectedButtonClicked:" target="XfG-lQ-9wD" id="4cI-g3-2F5"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

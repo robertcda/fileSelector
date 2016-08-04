@@ -13,9 +13,6 @@ class ViewController: NSViewController {
     var selectionModel: SelectionModel!{
         didSet{
             self.refreshLocalModel()
-
-            tableView.setDataSource(self)
-            tableView.setDelegate(self)
         }
     }
     
@@ -26,8 +23,16 @@ class ViewController: NSViewController {
     }
     func refreshLocalModel(){
         for imgInfo in self.selectionModel.imageInformationArray{
+            if showSelected == false && imgInfo.selected{
+                continue
+            }
+            if showNonSelected == false && imgInfo.selected == false{
+                continue
+            }
             self.filteredArrayOfFileInfos.append(imgInfo)
         }
+        tableView.setDataSource(self)
+        tableView.setDelegate(self)
     }
     
     @IBOutlet weak var fileDescriptionLabel: NSTextField!
@@ -80,12 +85,32 @@ class ViewController: NSViewController {
     //MARK:- outlets and Actions
     
     @IBOutlet weak var nonSelectedCheckbox: NSButton!
-    @IBAction func nonSelectedClicked(sender: NSButton) {
+    var showSelected = true{
+        didSet{
+            self.refreshLocalModel()
+        }
+    }
+    var showNonSelected = true{
+        didSet{
+            self.refreshLocalModel()
+        }
+    }
+    @IBAction func selectedButtonClicked(sender: NSButton) {
+        if sender.state == 0{
+            showSelected = false
+        }else{
+            showSelected = true
+        }
     }
     
     @IBOutlet weak var selectedCheckBox: NSButton!
     
     @IBAction func nonSelectedButtonClicked(sender: NSButton) {
+        if sender.state == 0{
+            showNonSelected = false
+        }else{
+            showNonSelected = true
+        }
     }
     
     @IBAction func selectFolderButtonClicked(sender: AnyObject) {
