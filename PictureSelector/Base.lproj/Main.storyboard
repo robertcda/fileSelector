@@ -801,6 +801,16 @@
                                     <action selector="nonSelectedButtonClicked:" target="XfG-lQ-9wD" id="DBV-zP-zSj"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="adF-yg-mFo">
+                                <rect key="frame" x="131" y="13" width="70" height="32"/>
+                                <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ji4-ks-jhb">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="saveButtonClicked:" target="XfG-lQ-9wD" id="n9q-WP-TPt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="tDe-mW-pPm" firstAttribute="leading" secondItem="apH-TP-5xV" secondAttribute="trailing" constant="8" symbolic="YES" id="3UM-ur-dnK"/>

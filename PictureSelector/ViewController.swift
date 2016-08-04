@@ -77,6 +77,9 @@ class ViewController: NSViewController {
 }
 
 extension ViewController: NSTableViewDataSource{
+    @IBAction func saveButtonClicked(sender: NSButton) {
+        self.selectionModel.save()
+    }
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         return self.selectionModel.imageInformationArray.count
     }
