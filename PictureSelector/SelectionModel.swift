@@ -11,6 +11,7 @@ import Foundation
 class FileInformation{
     var filePath:NSURL?
     var selected:Bool = false
+    var group: String = ""
 }
 
 class SelectionModel{
@@ -35,7 +36,7 @@ class SelectionModel{
                         let fileInfoObject = FileInformation()
                         fileInfoObject.filePath = imgURL
                         fileInfoObject.selected = isFileSelected(imgURL)
-
+                        fileInfoObject.group = groupOfFile(imgURL)
                         self.imageInformationArray.append(fileInfoObject)
                         
                     default:
@@ -68,10 +69,24 @@ class SelectionModel{
     // MARK:- Interface to get the selected files in text format.
     func selectedFilesInText() -> String{
         var selectedText: String = ""
-        for fileName in selectedFileNames{
-            selectedText += fileName
-            selectedText += ", "
+        
+        var allGroupsInformation = [String:[String]]()
+        
+        for (fileName,group) in selectedFileDetails{
+            allGroupsInformation[group]?.append(fileName)
         }
+        
+        for (groupName,arrayOfFiles) in allGroupsInformation{
+            selectedText += groupName
+            selectedText += ":\n"
+            for imgName in arrayOfFiles{
+                selectedText += imgName
+                selectedText += ", "
+            }
+            selectedText += "\n\n"
+            selectedText += "--------"
+        }
+        
         return selectedText
     }
     
@@ -79,16 +94,16 @@ class SelectionModel{
     var fileNameToSave = "selectedList.plist"
     func save(){
         
-        var arrayOfFiles = [String]()
+        var dictionaryOfFileDetails = [String:String]()
         
         for imgInfo in imageInformationArray{
             if let filePath = imgInfo.filePath where imgInfo.selected, let fileName = filePath.lastPathComponent{
-                arrayOfFiles.append(fileName)
+                dictionaryOfFileDetails[fileName] = imgInfo.group ?? ""
             }
         }
         
         do {
-            let data = try NSPropertyListSerialization.dataWithPropertyList(arrayOfFiles, format: .XMLFormat_v1_0, options:0)
+            let data = try NSPropertyListSerialization.dataWithPropertyList(dictionaryOfFileDetails, format: .XMLFormat_v1_0, options:0)
             if let folderPath = folderPath{
                 let fileURL = folderPath.URLByAppendingPathComponent(fileNameToSave)
                 try data.writeToURL(fileURL, options: .DataWritingAtomic)
@@ -97,29 +112,43 @@ class SelectionModel{
             print("error: \(error)")
         }
         
+        self.initialzeFilesSelected()
     }
     
+    func groupOfFile(fileURL:NSURL) -> String{
+        if let pathComponent = fileURL.lastPathComponent{
+            for (fileName,group) in selectedFileDetails{
+                if fileName == pathComponent{
+                    return group
+                }
+            }
+        }
+        return ""
+    }
+
     
     func isFileSelected(fileURL:NSURL) -> Bool{
         if let pathComponent = fileURL.lastPathComponent{
-            if selectedFileNames.contains(pathComponent){
-                return true
+            for (fileName,_) in selectedFileDetails{
+                if fileName == pathComponent{
+                    return true
+                }
             }
         }
         return false
     }
     
-    var selectedFileNames = [String]()
+    var selectedFileDetails = [String:String]()
     
     func initialzeFilesSelected(){
-        selectedFileNames.removeAll()
+        selectedFileDetails.removeAll()
         if let folderPath = folderPath{
             let fileURL = folderPath.URLByAppendingPathComponent(fileNameToSave)
             if let data = NSData(contentsOfURL: fileURL){
                 do{
                     let propertyListObject = try NSPropertyListSerialization.propertyListWithData(data, options: NSPropertyListReadOptions(), format: nil)
-                    if let propertyListObjectArray = propertyListObject as? [String]{
-                        selectedFileNames.appendContentsOf(propertyListObjectArray)
+                    if let propertyListObjectDictionary = propertyListObject as? [String:String]{
+                        selectedFileDetails = selectedFileDetails.mergedWith(propertyListObjectDictionary)
                     }
                 }catch let error{
                     print("error: \(error)")
@@ -128,4 +157,16 @@ class SelectionModel{
         }
     }
     
+}
+
+extension Dictionary {
+    func mergedWith(otherDictionary: [Key: Value]) -> [Key: Value] {
+        var mergedDict: [Key: Value] = [:]
+        [self, otherDictionary].forEach { dict in
+            for (key, value) in dict {
+                mergedDict[key] = value
+            }
+        }
+        return mergedDict
+    }
 }
