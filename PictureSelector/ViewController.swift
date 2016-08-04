@@ -18,7 +18,6 @@ class ViewController: NSViewController {
     
     var filteredArrayOfFileInfos:[FileInformation] = [FileInformation](){
         didSet{
-            self.tableView.reloadData()
         }
     }
     func refreshLocalModel(){
@@ -40,8 +39,22 @@ class ViewController: NSViewController {
                     }
                 }
             }
-            tableView.setDataSource(self)
-            tableView.setDelegate(self)
+            
+            self.filteredArrayOfFileInfos.sortInPlace(){
+                one, two in
+                if let oneStringProperty = self.currentSortingMetho.stringPropertyToSort(one) {
+                    if let twoStringProperty = self.currentSortingMetho.stringPropertyToSort(two){
+                        if oneStringProperty < twoStringProperty  {
+                            return self.currentSortingMetho.ascendingBoolValue
+                        }else{
+                            return !self.currentSortingMetho.ascendingBoolValue
+                        }
+                    }
+                }
+                return !self.currentSortingMetho.ascendingBoolValue
+            }
+            
+            self.tableView.reloadData()
         }
     }
     
@@ -51,7 +64,10 @@ class ViewController: NSViewController {
     @IBOutlet weak var imageView: NSImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        tableView.setDataSource(self)
+        tableView.setDelegate(self)
+
         self.initializeShowOptions()
 //        imageView.autoresizingMask =  [.ViewNotSizable]
         // Do any additional setup after loading the view.
@@ -149,6 +165,34 @@ class ViewController: NSViewController {
             pasteboard.setString(selectionModel.selectedFilesInText(), forType: NSPasteboardTypeString)
         }
     }
+    
+    // MARK:- Sorting
+    
+    var currentSortingMetho: SortingOfTableView = .ImageName(ascending:true){
+        didSet{
+            self.refreshLocalModel()
+        }
+    }
+    enum SortingOfTableView {
+        case ImageName(ascending:Bool), Group(ascending:Bool)
+        func stringPropertyToSort(imageInfo: FileInformation) -> String?{
+            switch self {
+            case .ImageName:
+                return imageInfo.fileURL?.lastPathComponent
+            default:
+                return imageInfo.group
+            }
+        }
+        var ascendingBoolValue: Bool{
+            switch self{
+            case .Group(let ascending):
+                    return ascending
+            case .ImageName(let ascending):
+                    return ascending
+            }
+        }
+    }
+
 
 }
 
@@ -201,6 +245,7 @@ extension ViewController: NSTableViewDataSource{
         }
     }
     
+    
     func tableView(tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         guard let sortDescriptor = tableView.sortDescriptors.first else {
             return
@@ -208,34 +253,12 @@ extension ViewController: NSTableViewDataSource{
         if let key = sortDescriptor.key{
             switch key {
             case "ImageName":
-                self.filteredArrayOfFileInfos.sortInPlace(){
-                    one, two in
-                    if let oneFileName = one.fileURL?.lastPathComponent{
-                        if let twoFileName = two.fileURL?.lastPathComponent{
-                            if oneFileName < twoFileName  {
-                                return sortDescriptor.ascending
-                            }else{
-                                return !sortDescriptor.ascending
-                            }
-                        }
-                    }
-                    return !sortDescriptor.ascending
-                }
-                
                 print("Sort By Image Name ascending(\(sortDescriptor.ascending))")
+                self.currentSortingMetho = .ImageName(ascending:sortDescriptor.ascending)
                 
             case "group":
                 print("Sort By Group ascending(\(sortDescriptor.ascending)")
-                
-                self.filteredArrayOfFileInfos.sortInPlace(){
-                    one, two in
-                    if one.group < two.group  {
-                        return sortDescriptor.ascending
-                    }else{
-                        return !sortDescriptor.ascending
-                    }
-                    return !sortDescriptor.ascending
-                }
+                self.currentSortingMetho = .Group(ascending:sortDescriptor.ascending)
 
             default:
                 break

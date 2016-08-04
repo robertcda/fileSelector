@@ -57,6 +57,8 @@ class SelectionModel{
         do{
             arrayOfFileURLs.removeAll()
             if let folderPath = folderPath{
+                
+                
                 let arrayOfFiles = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(folderPath, includingPropertiesForKeys: nil, options:NSDirectoryEnumerationOptions())
                 print("arrayOfFiles:\(arrayOfFiles)")
                 arrayOfFileURLs.appendContentsOf(arrayOfFiles)
