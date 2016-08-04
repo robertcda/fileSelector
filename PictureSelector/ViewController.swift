@@ -10,7 +10,7 @@ import Cocoa
 
 class ViewController: NSViewController {
 
-    var selectionModel: SelectionModel!{
+    var selectionModel: SelectionModel?{
         didSet{
             self.refreshLocalModel()
         }
@@ -22,17 +22,27 @@ class ViewController: NSViewController {
         }
     }
     func refreshLocalModel(){
-        for imgInfo in self.selectionModel.imageInformationArray{
-            if showSelected == false && imgInfo.selected{
-                continue
+        if let selectionModel = self.selectionModel{
+            
+            self.filteredArrayOfFileInfos.removeAll()
+            
+            for imgInfo in selectionModel.imageInformationArray{
+                switch self.currentlySelectedShowOption {
+                case .All:
+                    self.filteredArrayOfFileInfos.append(imgInfo)
+                case .NonSelected:
+                    if imgInfo.selected == false{
+                        self.filteredArrayOfFileInfos.append(imgInfo)
+                    }
+                case .Selected:
+                    if imgInfo.selected{
+                        self.filteredArrayOfFileInfos.append(imgInfo)
+                    }
+                }
             }
-            if showNonSelected == false && imgInfo.selected == false{
-                continue
-            }
-            self.filteredArrayOfFileInfos.append(imgInfo)
+            tableView.setDataSource(self)
+            tableView.setDelegate(self)
         }
-        tableView.setDataSource(self)
-        tableView.setDelegate(self)
     }
     
     @IBOutlet weak var fileDescriptionLabel: NSTextField!
@@ -42,6 +52,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.initializeShowOptions()
 //        imageView.autoresizingMask =  [.ViewNotSizable]
         // Do any additional setup after loading the view.
     }
@@ -82,9 +93,24 @@ class ViewController: NSViewController {
         return resultURL
     }
     
-    //MARK:- outlets and Actions
+    //MARK:- Show options
     
+    var currentlySelectedShowOption:ShowOptions = .All{
+        didSet{
+            allCheckBox.state = NSNumber.init(bool:(currentlySelectedShowOption == .All)).integerValue
+            selectedCheckBox.state = NSNumber.init(bool:(currentlySelectedShowOption == .Selected)).integerValue
+            nonSelectedCheckbox.state = NSNumber.init(bool:(currentlySelectedShowOption == .NonSelected)).integerValue
+            
+            self.refreshLocalModel()
+        }
+    }
+    
+    @IBOutlet weak var allCheckBox: NSButton!
     @IBOutlet weak var nonSelectedCheckbox: NSButton!
+    @IBOutlet weak var selectedCheckBox: NSButton!
+    
+    enum ShowOptions: Int { case All = 10, Selected = 20, NonSelected = 30 }
+    
     var showSelected = true{
         didSet{
             self.refreshLocalModel()
@@ -95,36 +121,33 @@ class ViewController: NSViewController {
             self.refreshLocalModel()
         }
     }
-    @IBAction func selectedButtonClicked(sender: NSButton) {
-        if sender.state == 0{
-            showSelected = false
-        }else{
-            showSelected = true
+    
+    func initializeShowOptions(){
+        allCheckBox.tag = ShowOptions.All.rawValue
+        selectedCheckBox.tag = ShowOptions.Selected.rawValue
+        nonSelectedCheckbox.tag = ShowOptions.NonSelected.rawValue
+        self.currentlySelectedShowOption = .All
+    }
+    
+    @IBAction func showOptionChanged(sender: NSButton) {
+        if let showOption = ShowOptions(rawValue: sender.tag){
+            currentlySelectedShowOption = showOption
         }
     }
     
-    @IBOutlet weak var selectedCheckBox: NSButton!
-    
-    @IBAction func nonSelectedButtonClicked(sender: NSButton) {
-        if sender.state == 0{
-            showNonSelected = false
-        }else{
-            showNonSelected = true
-        }
-    }
-    
+    //MARK:- outlets and Actions
+
     @IBAction func selectFolderButtonClicked(sender: AnyObject) {
         self.initializeBasics()
     }
 
     
     @IBAction func saveButtonClicked(sender: NSButton) {
-        
-        let pasteboard = NSPasteboard.generalPasteboard()
-        pasteboard.declareTypes([NSPasteboardTypeString], owner: nil)
-        pasteboard.setString(self.selectionModel.selectedFilesInText(), forType: NSPasteboardTypeString)
-        
-        
+        if let selectionModel = self.selectionModel{
+            let pasteboard = NSPasteboard.generalPasteboard()
+            pasteboard.declareTypes([NSPasteboardTypeString], owner: nil)
+            pasteboard.setString(selectionModel.selectedFilesInText(), forType: NSPasteboardTypeString)
+        }
     }
 
 }
@@ -166,12 +189,12 @@ extension ViewController: NSTableViewDataSource{
         case "selected":
             if let numberValue = object as? NSNumber{
                 fileDetails.selected = numberValue.boolValue
-                self.selectionModel.save()
+                self.selectionModel?.save()
             }
         case "group":
             if let groupName = object as? String{
                 fileDetails.group = groupName
-                self.selectionModel.save()
+                self.selectionModel?.save()
             }
         default:
             break

@@ -675,13 +675,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K6W-xz-YZl">
-                                <rect key="frame" x="20" y="-17" width="668" height="472"/>
+                                <rect key="frame" x="20" y="-19" width="668" height="474"/>
                                 <subviews>
                                     <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F54-qP-zU1">
-                                        <rect key="frame" x="0.0" y="0.0" width="370" height="472"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="370" height="474"/>
                                         <subviews>
                                             <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apH-TP-5xV">
-                                                <rect key="frame" x="20" y="112" width="330" height="360"/>
+                                                <rect key="frame" x="20" y="114" width="330" height="360"/>
                                                 <clipView key="contentView" id="AIC-TR-2Hm">
                                                     <rect key="frame" x="1" y="0.0" width="328" height="359"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -753,7 +753,7 @@
                                                 </tableHeaderView>
                                             </scrollView>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="800" translatesAutoresizingMaskIntoConstraints="NO" id="I5t-rL-krj">
-                                                <rect key="frame" x="18" y="75" width="334" height="17"/>
+                                                <rect key="frame" x="18" y="77" width="334" height="17"/>
                                                 <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingHead" sendsActionOnEndEditing="YES" title="Multiline Label" id="suh-D2-1Xp">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -761,34 +761,46 @@
                                                 </textFieldCell>
                                             </textField>
                                             <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oI1-4u-GGF">
-                                                <rect key="frame" x="20" y="41" width="330" height="14"/>
+                                                <rect key="frame" x="20" y="41" width="330" height="16"/>
                                                 <subviews>
-                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Lcb-nk-uJe">
-                                                        <rect key="frame" x="-2" y="-2" width="165" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Non-Selected" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vAn-Ib-MLV">
+                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="aWl-OE-rrQ">
+                                                        <rect key="frame" x="-1" y="-1" width="108" height="18"/>
+                                                        <buttonCell key="cell" type="radio" title="All" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="z41-Br-95J">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="nonSelectedButtonClicked:" target="XfG-lQ-9wD" id="Bcl-W5-k8N"/>
+                                                            <action selector="showOptionChanged:" target="XfG-lQ-9wD" id="uWh-TT-FJF"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Lcb-nk-uJe">
+                                                        <rect key="frame" x="112" y="-1" width="108" height="18"/>
+                                                        <buttonCell key="cell" type="radio" title="Non-Selected" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="vAn-Ib-MLV">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="showOptionChanged:" target="XfG-lQ-9wD" id="SRq-ed-v55"/>
                                                         </connections>
                                                     </button>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="nZy-E0-IBF">
-                                                        <rect key="frame" x="167" y="-2" width="165" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Selected" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="KQv-88-DMX">
+                                                        <rect key="frame" x="225" y="-1" width="108" height="18"/>
+                                                        <buttonCell key="cell" type="radio" title="Selected" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="KQv-88-DMX">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="selectedButtonClicked:" target="XfG-lQ-9wD" id="4cI-g3-2F5"/>
+                                                            <action selector="showOptionChanged:" target="XfG-lQ-9wD" id="869-Wx-6C2"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
+                                                    <integer value="1000"/>
                                                 </visibilityPriorities>
                                                 <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                 </customSpacing>
@@ -852,7 +864,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tDe-mW-pPm">
-                                        <rect key="frame" x="387" y="17" width="264" height="438"/>
+                                        <rect key="frame" x="387" y="17" width="264" height="440"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="photo" id="zUP-tM-RbU"/>
                                     </imageView>
                                 </subviews>
@@ -880,6 +892,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="allCheckBox" destination="aWl-OE-rrQ" id="eIj-8H-OCR"/>
                         <outlet property="fileDescriptionLabel" destination="I5t-rL-krj" id="P7W-aM-H4o"/>
                         <outlet property="imageView" destination="tDe-mW-pPm" id="Wp5-4J-vbN"/>
                         <outlet property="nonSelectedCheckbox" destination="Lcb-nk-uJe" id="290-w7-ycA"/>
