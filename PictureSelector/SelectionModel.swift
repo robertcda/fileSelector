@@ -25,26 +25,29 @@ class SelectionModel{
     
     private var arrayOfFileURLs = [NSURL](){
         didSet{
-            imageInformationArray.removeAll()
-            for imgURL in arrayOfFileURLs{
-                if let path = imgURL.pathExtension{
-                    switch path{
-                    case "JPG": fallthrough
-                    case "BMP": fallthrough
-                    case "PNG":
-                        
-                        let fileInfoObject = FileInformation()
-                        fileInfoObject.fileURL = imgURL
-                        fileInfoObject.selected = isFileSelected(imgURL)
-                        fileInfoObject.group = groupOfFile(imgURL)
-                        self.imageInformationArray.append(fileInfoObject)
-                        
-                    default:
-                        continue
-                    }
+        }
+    }
+    func initializeImageInformationArray(){
+        imageInformationArray.removeAll()
+        for imgURL in arrayOfFileURLs{
+            if let path = imgURL.pathExtension{
+                switch path{
+                case "JPG": fallthrough
+                case "BMP": fallthrough
+                case "PNG":
+                    
+                    let fileInfoObject = FileInformation()
+                    fileInfoObject.fileURL = imgURL
+                    fileInfoObject.selected = isFileSelected(imgURL)
+                    fileInfoObject.group = groupOfFile(imgURL)
+                    self.imageInformationArray.append(fileInfoObject)
+                    
+                default:
+                    continue
                 }
             }
         }
+        
     }
     
     init(fromFolderPath folderPath: NSURL){
@@ -64,6 +67,7 @@ class SelectionModel{
                         arrayOfFileURLs.append(folderPath.URLByAppendingPathComponent(element))
                     }
                 }
+                initializeImageInformationArray()
 /*
                 let arrayOfFiles = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(folderPath, includingPropertiesForKeys: nil, options:NSDirectoryEnumerationOptions())
                 print("arrayOfFiles:\(arrayOfFiles)")
